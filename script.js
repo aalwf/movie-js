@@ -3,9 +3,13 @@ const searchInput = document.querySelector(".input-keyword");
 const movieContainer = document.querySelector(".movie-container");
 
 searchBtn.addEventListener("click", async function () {
-  const keyword = searchInput.value;
-  const movies = await getMovies(keyword);
-  updateUI(movies);
+  try {
+    const keyword = searchInput.value;
+    const movies = await getMovies(keyword);
+    updateUI(movies);
+  } catch(err) {
+    alert(err);
+  }
 });
 
 searchInput.addEventListener("input", async function () {
@@ -39,8 +43,18 @@ function updateUIDetail(m) {
 
 function getMovies(keyword) {
   return fetch("http://www.omdbapi.com/?apikey=f00edace&s=" + keyword)
-    .then((response) => response.json())
-    .then((response) => response.Search || []);
+    .then((response) => {
+      if(!response.ok) {
+        throw new Error(response.statusText)
+      }
+      return response.json();
+    })
+    .then((response) => {
+      if(response.Response === "False") {
+        throw new Error(response.Error)
+      }
+      return response.Search;
+    });
 }
 
 function updateUI(movies) {
