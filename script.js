@@ -25,7 +25,11 @@ function displayMovies(movies) {
           <div class="card-body">
             <h5 class="card-title text-truncate mb-4">${movie.title}</h5>
             <button type="button" class="btn btn-primary" onclick="showMovieDetails(${movie.id})">Details</button>
-            <button type="button" class="btn btn-success" onclick="addToFavorites(${movie.id})">Add to Favorites</button>
+            <button type="button" class="btn btn-outline-danger" onclick="addToFavorites(${movie.id})">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8 1.314C3.562-3.248-7.534 4.735 8 15 23.534 4.736 12.438-3.248 8 1.314z"/>
+            </svg> 
+            </button>
           </div>
         </div>
       </div>
